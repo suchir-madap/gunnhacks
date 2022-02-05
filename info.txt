@@ -1,0 +1,1 @@
+to run on windows in terminal type venv\scripts\activate
