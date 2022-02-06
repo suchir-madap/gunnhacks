@@ -9,11 +9,12 @@ from kivy.uix.image import Image
 from kivy.core.window import Window
 from kivy.uix.label import Label 
 import json
-Window.size = (900, 620)
+# Window.size = (900, 620)
 
 
 
 class MainApp(App):
+    Window.size = (900, 620)
     def build(self):
         Window.clearcolor = (37/255, 151/255, 217/255, 0.8)
         backgroundimg = Image(source="background.jpg", size_hint_x = None, width = 200, size_hint_y = None, height = 200)
@@ -31,8 +32,9 @@ class MainApp(App):
     def submit(self,obj):
         print(self.value.text)
         zipcode = self.value.text
+        App.get_running_app().stop()
         Window.close()
-        zip_dict = {'zipcode': str(zipcode)}
+        zip_dict = {"zipcode": str(zipcode)}
         json_dumping = json.dumps(zip_dict)
         with open("zipcode.json", "w") as outfile:
             outfile.write(json_dumping)
