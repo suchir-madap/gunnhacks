@@ -1,9 +1,9 @@
 
 import json
-from startscreen import MainApp
+from pygamestart import start_screen
 from weather import check_conditions
 
-# MainApp().run()
+start_screen()
 
 with open('zipcode.json', 'r') as openfile:
     json_zip = json.load(openfile)
