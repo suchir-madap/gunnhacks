@@ -8,30 +8,30 @@ from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle
 from kivy.core.window import Window
 from kivy.clock import Clock
+from kivy.uix.label import CoreLabel
 from weather import *
 import sys
 import random
 
-class SnakeGame(Widget):
+class playerGame(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.keyboard = Window.request_keyboard(self.on_key_closed, self)
         self.keyboard.bind(on_key_up=self.on_key_up)
-        self.score = 0
 
         with self.canvas:
             self.player = Rectangle(pos=(500, 250), size=(100, 100))
-            self.apple = Rectangle(pos = (300,300), size = (50,50))
+            self.sign = Rectangle(pos = (300,300), size = (50,50))
     
-    def eat(snake, apple):
-        r1x = snake[0][0]
-        r1y = snake[0][1]
-        r2x = apple[0][0]
-        r2y = apple[0][1]
-        r1w = snake[1][0]
-        r1h = snake[1][1]
-        r2w = apple[1][0]
-        r2h = apple[1][1]
+    def collide(player, sign):
+        r1x = player[0][0]
+        r1y = player[0][1]
+        r2x = sign[0][0]
+        r2y = sign[0][1]
+        r1w = player[1][0]
+        r1h = player[1][1]
+        r2w = sign[1][0]
+        r2h = sign[1][1]
 
         if (r1x < r2x + r2w and r1x + r1w > r2x and r1y < r2y + r2h and r1y + r1h > r2y):
             return True
@@ -46,9 +46,7 @@ class SnakeGame(Widget):
         key = keycode[-1]
         xpos = self.player.pos[0]
         ypos = self.player.pos[1]
-        aposx = random.randint(0, Window.width - int(0.5 * self.apple.size[0]))
-        aposy = random.randint(0, Window.height - int(0.5 * self.apple.size[1]))
-
+        
         if key == "w" or key == "up":
             ypos += 100
         elif key == "a" or key == "left":
@@ -58,22 +56,21 @@ class SnakeGame(Widget):
         elif key == "d" or key == "right":
             xpos += 100
         elif key == "z":
-            print("Thanks for playing!")
             sys.exit()
         else:
             print("Please use WASD or Arrow Keys")
     
         self.player.pos = (xpos,ypos)
-        if SnakeGame.eat((self.player.pos, self.player.size), (self.apple.pos, self.apple.size)):
-            self.apple.pos = (aposx, aposy)
+        if playerGame.collide((self.player.pos, self.player.size), (self.sign.pos, self.sign.size)):
+            print("Ow I stubbed my toe")
 
 
-class SnakeApp(App):
+class playerApp(App):
     def build(self):
-        return SnakeGame()
+        return playerGame()
 
 
 if __name__ == "__main__":
     # z_code = int(input())
     # print(check_conditions(z_code))
-    SnakeApp().run()
+    playerApp().run()
