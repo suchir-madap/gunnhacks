@@ -15,7 +15,7 @@ BACKGROUND_COLOR = (110, 110, 5)
 class Apple:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("add-ons/apple.jpg").convert()
+        self.image = pygame.image.load("assets/images/apple.jpg").convert()
         self.x = 120
         self.y = 120
 
@@ -31,7 +31,7 @@ class Apple:
 class Snake:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("add-ons/block.jpg").convert()
+        self.image = pygame.image.load("assets/images/block.jpg").convert()
         self.direction = 'down'
 
         self.length = 1
@@ -96,14 +96,14 @@ class Game:
         self.apple.draw()
 
     def play_background_music(self):
-        pygame.mixer.music.load('assets/snake_background.mp3')
+        pygame.mixer.music.load('assets/sounds/snake_background.mp3')
         pygame.mixer.music.play(-1, 0)
 
     def play_sound(self, sound_name):
         if sound_name == "crash":
-            sound = pygame.mixer.Sound("assets/snake_crash.mp3")
+            sound = pygame.mixer.Sound("assets/sounds/snake_crash.mp3")
         elif sound_name == 'ding':
-            sound = pygame.mixer.Sound("assets/snake_eat.mp3")
+            sound = pygame.mixer.Sound("assets/sounds/snake_eat.mp3")
 
         pygame.mixer.Sound.play(sound)
 
